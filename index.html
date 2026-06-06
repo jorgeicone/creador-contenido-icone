@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creador de Contenido a la Medida · ICONE Academy</title>
+<meta name="description" content="Genera el Kit de Marca y la estrategia de Marketing Digital a la Medida (5 pilares + calendario + piezas) para cualquier negocio, con IA. Método ICONE Academy · Jorge Hugo Pérez.">
+<meta name="theme-color" content="#050d1f">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<style>
+:root{
+  --bg:#050d1f; --surface:rgba(9,22,40,0.92); --surface2:#0d1e35; --surface3:#122540;
+  --border:rgba(22,46,74,0.85); --border2:#1e3d5e;
+  --accent:#00d4ff; --accent2:#7b2fff; --accent3:#10b981; --orange:#ff8c00;
+  --gold:#f59e0b; --pink:#ec4899; --danger:#ef4444;
+  --text:#e2e8f0; --muted:#7a93b4; --dim:#3d5272;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+body{min-height:100vh;position:relative;overflow-x:hidden}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:24px 18px 90px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.brand .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#03101f;box-shadow:0 0 24px rgba(0,212,255,.45)}
+.brand .bt{font-weight:800;letter-spacing:.3px}
+.brand .bs{font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border2);color:var(--accent);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:7px 16px;border-radius:999px}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:26px;backdrop-filter:blur(8px);box-shadow:0 18px 50px rgba(0,0,0,.4);margin-bottom:18px}
+h1{font-size:32px;font-weight:800;line-height:1.15;margin:14px 0 8px}
+h1 .grad{background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{color:var(--muted);font-size:15px;max-width:680px}
+label{display:block;font-size:12px;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+input,textarea,select{width:100%;background:var(--surface3);border:1px solid var(--border2);border-radius:11px;padding:13px 15px;color:var(--text);font-size:15px;outline:none;transition:.2s;font-family:inherit}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,212,255,.15)}
+textarea{resize:vertical;min-height:70px;line-height:1.5}
+.hint{font-size:12px;color:var(--dim);margin-top:6px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:640px){.row{grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(120deg,var(--accent),var(--accent2));color:#03101f;font-weight:800;font-size:15px;border:none;border-radius:12px;padding:14px 24px;cursor:pointer;transition:.2s;box-shadow:0 8px 26px rgba(0,212,255,.3);text-decoration:none}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border2);box-shadow:none}
+.btn.sm{padding:8px 14px;font-size:13px;border-radius:9px}
+.btn.full{width:100%;margin-top:20px}
+.hidden{display:none!important}
+.cfgbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--surface2);border:1px solid var(--border2);border-radius:14px;padding:12px 16px;margin-bottom:18px;font-size:13px}
+.cfgbar .st{display:flex;align-items:center;gap:8px;color:var(--muted)}
+.cfgbar .ok{color:var(--accent3)}
+.cfgbar .no{color:var(--gold)}
+.dot2{width:9px;height:9px;border-radius:50%}
+/* progress */
+.steps{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.step{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;font-size:14px}
+.step .ic{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;border:2px solid var(--border2);color:var(--muted)}
+.step.run .ic{border-color:var(--accent);color:var(--accent)}
+.step.done .ic{border-color:var(--accent3);background:var(--accent3);color:#03101f}
+.step.run{border-color:var(--accent)}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(0,212,255,.3);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* tabs */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:10px 16px;border-radius:999px;background:var(--surface2);border:1px solid var(--border2);cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:.15s}
+.tab.on{background:rgba(0,212,255,.1);border-color:var(--accent);color:var(--accent)}
+.panel{display:none}
+.panel.on{display:block}
+.md{font-size:15px;line-height:1.65}
+.md h1,.md h2,.md h3{color:#fff;margin:18px 0 10px;line-height:1.25}
+.md h1{font-size:24px} .md h2{font-size:20px;border-bottom:1px solid var(--border);padding-bottom:6px} .md h3{font-size:16px;color:var(--accent)}
+.md p{margin:10px 0;color:var(--text)}
+.md ul,.md ol{margin:10px 0 10px 22px} .md li{margin:5px 0}
+.md strong{color:#fff}
+.md table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px}
+.md th,.md td{border:1px solid var(--border2);padding:8px 10px;text-align:left}
+.md th{background:var(--surface3);color:var(--accent);text-transform:uppercase;font-size:11px;letter-spacing:.5px}
+.md blockquote{border-left:3px solid var(--accent);padding:6px 14px;margin:12px 0;color:var(--muted);background:var(--surface2);border-radius:0 8px 8px 0}
+.md code{background:var(--surface3);padding:2px 6px;border-radius:5px;font-size:13px;color:var(--gold)}
+.toolbar{display:flex;gap:8px;justify-content:flex-end;margin-bottom:12px;flex-wrap:wrap}
+.err{color:var(--danger);font-size:13px;margin-top:10px}
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.sw{width:46px;height:46px;border-radius:10px;border:1px solid var(--border2);position:relative}
+.foot{text-align:center;color:var(--dim);font-size:12px;margin-top:30px;line-height:1.7}
+.modal{position:fixed;inset:0;background:rgba(2,7,18,.8);z-index:50;display:flex;align-items:center;justify-content:center;padding:18px}
+.modal .box{background:var(--surface);border:1px solid var(--border2);border-radius:18px;padding:26px;max-width:520px;width:100%}
+a{color:var(--accent)}
+@media print{#stars,.tabs,.toolbar,.cfgbar,.btn{display:none!important}.panel{display:block!important}body{background:#fff;color:#000}.card{box-shadow:none}}
+@media(max-width:560px){h1{font-size:25px}.card{padding:20px}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="wrap">
+  <div class="brand">
+    <div class="logo">IA</div>
+    <div><div class="bt">Creador de Contenido a la Medida</div><div class="bs">ICONE Academy · Método Jorge Hugo Pérez</div></div>
+  </div>
+
+  <div class="cfgbar">
+    <div class="st" id="cfgState"><span class="dot2" style="background:#f59e0b"></span> <span class="no">Configura tu clave de Gemini para empezar</span></div>
+    <button class="btn ghost sm" id="openCfg">⚙ Configurar IA</button>
+  </div>
+
+  <!-- BRIEF -->
+  <div id="brief" class="card">
+    <span class="pill"><span class="dot"></span> Del negocio al contenido, con IA</span>
+    <h1>Crea el <span class="grad">Kit de Marca</span> y la estrategia completa de cualquier negocio</h1>
+    <p class="lead">Escribe el tipo de negocio y unos datos clave. La herramienta genera, con el método ICONE: el <b>Kit de Marca</b>, los <b>5 pilares de Marketing Digital a la Medida</b>, el <b>calendario de contenido</b> y <b>piezas listas para publicar</b>.</p>
+
+    <label>Tipo de negocio *</label>
+    <input id="f_tipo" placeholder="Ej: cafetería de especialidad, estudio de uñas, consultor financiero, marca de ropa deportiva…">
+
+    <div class="row">
+      <div>
+        <label>Nombre del negocio (si lo tiene)</label>
+        <input id="f_nombre" placeholder="Opcional">
+      </div>
+      <div>
+        <label>Ciudad / zona</label>
+        <input id="f_lugar" placeholder="Ej: Cúcuta, Colombia">
+      </div>
+    </div>
+
+    <label>¿Qué ofrece exactamente? (productos / servicios principales)</label>
+    <textarea id="f_oferta" placeholder="Describe en 1–3 líneas lo que vende o el servicio que presta."></textarea>
+
+    <div class="row">
+      <div>
+        <label>Cliente ideal (si lo tienes claro)</label>
+        <input id="f_cliente" placeholder="Ej: mujeres 25–40 que cuidan su salud">
+      </div>
+      <div>
+        <label>Objetivo principal</label>
+        <select id="f_objetivo">
+          <option>Conseguir más clientes / ventas</option>
+          <option>Dar a conocer la marca (visibilidad)</option>
+          <option>Posicionarse como referente / autoridad</option>
+          <option>Lanzar un producto o servicio nuevo</option>
+          <option>Fidelizar y vender más a clientes actuales</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Personalidad deseada de la marca (opcional)</label>
+    <input id="f_tono" placeholder="Ej: cercana y divertida / profesional y confiable / premium y exclusiva">
+
+    <button class="btn full" id="gen">✨ Generar todo con IA</button>
+    <div class="err" id="briefErr"></div>
+    <p class="hint">La generación tarda ~1–2 min. Se hace en 4 pasos: Kit de Marca → 5 Pilares → Calendario → Piezas listas.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div id="progress" class="card hidden">
+    <h1 style="font-size:22px">Generando <span class="grad" id="pTipo"></span>…</h1>
+    <div class="steps" id="pSteps"></div>
+    <div class="err" id="genErr"></div>
+    <button class="btn ghost full hidden" id="retry">Reintentar</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results" class="hidden">
+    <div class="toolbar">
+      <button class="btn ghost sm" id="dlAll">⬇ Descargar todo (.md)</button>
+      <button class="btn ghost sm" onclick="window.print()">🖨 Imprimir / PDF</button>
+      <button class="btn ghost sm" id="restart">↺ Nuevo negocio</button>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div class="card">
+      <div class="panel" data-k="kit"></div>
+      <div class="panel" data-k="pilares"></div>
+      <div class="panel" data-k="calendario"></div>
+      <div class="panel" data-k="piezas"></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Creador de Contenido a la Medida &nbsp;·&nbsp; Método ICONE Academy<br>
+    Eleva tu Marca + Marketing Digital a la Medida &nbsp;·&nbsp; Jorge Hugo Pérez
+  </div>
+</div>
+
+<!-- CONFIG MODAL -->
+<div id="cfgModal" class="modal hidden">
+  <div class="box">
+    <h1 style="font-size:22px">⚙ Configurar Gemini</h1>
+    <p class="lead" style="font-size:14px;margin-top:6px">Tu clave se guarda <b>solo en este navegador</b> (localStorage). No se comparte ni viaja a ningún servidor nuestro: las peticiones van directo de tu navegador a Google.</p>
+    <label>API Key de Google Gemini</label>
+    <input id="cfgKey" type="password" placeholder="AIza…">
+    <p class="hint">Consíguela gratis en <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></p>
+    <label>Modelo</label>
+    <input id="cfgModel" placeholder="gemini-2.5-flash">
+    <p class="hint">Sugeridos: <code>gemini-2.5-flash</code> (rápido/económico) · <code>gemini-2.5-pro</code> (más calidad). Si un nombre no funciona, prueba <code>gemini-1.5-flash</code>.</p>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button class="btn" id="cfgSave" style="flex:1">Guardar</button>
+      <button class="btn ghost" id="cfgClose">Cerrar</button>
+    </div>
+    <div class="err" id="cfgErr"></div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const LS_KEY="icone_gemini_key", LS_MODEL="icone_gemini_model";
+
+/* ====== MÉTODO ICONE (contexto para la IA) ====== */
+const METODO = `Eres un consultor experto de ICONE Academy (método de Jorge Hugo Pérez). Trabajas con DOS metodologías propias que debes respetar al pie de la letra.
+
+=== A) KIT DE MARCA "Eleva tu Marca" (13 pasos) ===
+1. Identidad de marca: 4–5 VALORES distintivos; MISIÓN (incluye: quiénes son los clientes, qué productos/servicios ofrece, filosofía y valores, colaboradores/aliados, interés por crecimiento y rentabilidad); VISIÓN (qué desea ser en el futuro, motivo, en qué tiempo, con qué recursos).
+2. Logotipo: concepto y descripción (no lo dibujas, lo describes: estilo, símbolo, idea).
+3. Paleta de colores: 5 colores con código HEX y nombre, coherentes con el arquetipo.
+4. Arquetipo de marca: elige UNO de los 10 y justifícalo. Tabla de referencia:
+   - Héroe: inspirador, valiente, orientado a la acción → Rojo, Azul → Helvetica Bold, Gotham.
+   - Sabio: verdad y conocimiento, reflexivo → Azul, Blanco → Times New Roman, Garamond.
+   - Explorador: aventurero, libre → Verde, Marrón → Futura, Montserrat.
+   - Inocente: optimista, sincero, simple → Blanco, Tonos Pastel → Comic Sans, Arial Rounded.
+   - Creador: innovador, imaginativo → Púrpura, Oro → Avenir, Proxima Nova.
+   - Cuidador: compasivo, servicial → Verde, Azul → Calibri, Lato.
+   - Rebelde: irreverente, desafiante → Negro, Rojo → Raleway, Bebas Neue.
+   - Amante: apasionado, sensual, relaciones → Rojo, Rosa → Pacifico, Cormorant Garamond.
+   - Bufón: divertido, humorístico → Amarillo, Naranja → Baloo, Fredoka One.
+   - Gobernante/Sádico: poder, control, exclusividad → Negro, Dorado → Baskerville, Didot.
+5. Tipografía: fuente principal y secundaria (coherentes con el arquetipo) + uso (títulos/cuerpo).
+6. Elementos gráficos: patrones, íconos, ilustraciones sugeridos.
+7. Pautas de uso: reglas rápidas de logotipo, color y tipografía.
+8. Plantillas: qué plantillas crear (posts, stories, presentaciones, documentos).
+9. Fotografía y estilo visual: estilo, paletas, filtros/ajustes.
+10. Eslogan: 3 opciones memorables.
+11. Tablero de marca: resumen ejecutivo de todos los parámetros.
+12. Aplicar a canales: cómo se ve la marca en cada punto de contacto.
+13. Feedback y actualización: nota de revisión periódica.
+
+=== B) MARKETING DIGITAL A LA MEDIDA (5 pilares) ===
+Principio: "No es hacer de todo, es hacer lo correcto y con intención." Estrategia personalizada al negocio, no recetas genéricas.
+PILAR 1 — Conocer al cliente y el dolor que resuelve: Mapa de empatía (qué piensa y siente, qué ve, qué oye, qué dice y hace, dolores/frustraciones, deseos/ganancias) + Buyer persona (qué hace, cómo se alimenta de información, creencias, a qué se dedica).
+PILAR 2 — Propuesta Única de Valor (PUV) potente: ¿A quién ayudo (nicho)? ¿Dónde están? ¿Qué problemas tienen hoy? ¿Los ayudo a transformarse o a resolver qué? Frase final de PUV impactante. Enfatiza beneficios tangibles, transparencia, garantías/testimonios.
+PILAR 3 — Elección de canales correctos: recomienda canales según el cliente (no según la moda). Referencia de foco por red: Instagram (visibilidad, storytelling visual), Facebook (comunidad, grupos), LinkedIn (B2B, autoridad, newsletter), TikTok (viralidad, video corto), WhatsApp (cierre/venta directa), Email (nutrición). Justifica cada elección.
+PILAR 4 — Contenido que guía, no solo entretiene: pilares de identidad (eres una persona / tienes una filosofía de vida / eres autoridad en tu campo). Mezcla de contenido: Visibilidad 60% (clips cortos, listas, comparaciones, problema/solución), Posicionamiento 20% (tutoriales, tema específico, experiencia), Conexión 10% (storytelling de marca, inspiración, estilo de vida), Venta 10% (productos, ofertas). Formatos: Reel (visibilidad), Carrusel (visibilidad/referente), Post (conexión), Lives (referente/conexión). Relevancia, consistencia, interacción.
+PILAR 5 — Embudo de ventas simple y funcional: camino claro de visita → venta. Revisión de activos: landing, WhatsApp, CRM, automatización. Pasos concretos.
+
+REGLAS DE SALIDA:
+- Responde SIEMPRE en español, en Markdown limpio y bien estructurado (usa ## y ### , listas y tablas).
+- Sé CONCRETO y aplicable al negocio dado: nada genérico. Usa ejemplos reales del sector.
+- No incluyas saludos ni "claro, aquí tienes": entrega directo el contenido.`;
+
+/* ====== CONFIG ====== */
+function getKey(){return localStorage.getItem(LS_KEY)||"";}
+function getModel(){return localStorage.getItem(LS_MODEL)||"gemini-2.5-flash";}
+function refreshCfg(){
+  const k=getKey();
+  if(k){ $("cfgState").innerHTML='<span class="dot2" style="background:#10b981"></span> <span class="ok">IA lista · '+getModel()+'</span>'; }
+  else { $("cfgState").innerHTML='<span class="dot2" style="background:#f59e0b"></span> <span class="no">Configura tu clave de Gemini para empezar</span>'; }
+}
+$("openCfg").onclick=()=>{ $("cfgKey").value=getKey(); $("cfgModel").value=getModel(); $("cfgModal").classList.remove("hidden"); };
+$("cfgClose").onclick=()=>$("cfgModal").classList.add("hidden");
+$("cfgSave").onclick=()=>{
+  const k=$("cfgKey").value.trim(), m=$("cfgModel").value.trim()||"gemini-2.5-flash";
+  if(!k){$("cfgErr").textContent="Pega tu API key.";return;}
+  localStorage.setItem(LS_KEY,k); localStorage.setItem(LS_MODEL,m);
+  $("cfgErr").textContent=""; $("cfgModal").classList.add("hidden"); refreshCfg();
+};
+refreshCfg();
+
+/* ====== GEMINI ====== */
+async function gemini(prompt){
+  const key=getKey(); if(!key) throw new Error("Falta la API key de Gemini.");
+  const model=getModel();
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`;
+  const body={contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.85,maxOutputTokens:8192}};
+  const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  if(!r.ok){
+    let t=await r.text();
+    if(r.status===400&&t.includes("API_KEY")) throw new Error("API key inválida. Revisa tu clave en ⚙ Configurar IA.");
+    if(r.status===404) throw new Error("Modelo '"+model+"' no disponible. Prueba con gemini-1.5-flash en ⚙ Configurar IA.");
+    if(r.status===429) throw new Error("Límite de uso alcanzado (429). Espera un momento o revisa tu cuota de Gemini.");
+    throw new Error("Gemini "+r.status+": "+t.slice(0,160));
+  }
+  const d=await r.json();
+  const out=d.candidates?.[0]?.content?.parts?.map(p=>p.text).join("")||"";
+  if(!out) throw new Error("La IA no devolvió contenido. Reintenta.");
+  return out;
+}
+
+/* ====== BRIEF -> PROMPTS ====== */
+let BRIEF={}, OUT={kit:"",pilares:"",calendario:"",piezas:""};
+
+function briefText(){
+  return `DATOS DEL NEGOCIO:
+- Tipo de negocio: ${BRIEF.tipo}
+- Nombre: ${BRIEF.nombre||"(sin nombre aún, propón opciones)"}
+- Ciudad/zona: ${BRIEF.lugar||"(no especificada)"}
+- Qué ofrece: ${BRIEF.oferta||"(no especificado, infiere lo típico del sector)"}
+- Cliente ideal: ${BRIEF.cliente||"(no especificado, defínelo tú)"}
+- Objetivo principal: ${BRIEF.objetivo}
+- Personalidad deseada: ${BRIEF.tono||"(no especificada, recomiéndala)"}`;
+}
+
+const PROMPTS={
+  kit:()=>`${METODO}
+
+TAREA: Crea el KIT DE MARCA COMPLETO (los 13 pasos) para este negocio.
+${briefText()}
+
+Estructura la respuesta con estos encabezados (##): 1) Identidad (Valores, Misión, Visión) · 2) Concepto de Logotipo · 3) Paleta de Colores (tabla con HEX y nombre) · 4) Arquetipo de Marca (cuál y por qué) · 5) Tipografía · 6) Elementos Gráficos · 7) Pautas de Uso · 8) Plantillas a crear · 9) Fotografía y Estilo Visual · 10) Eslogan (3 opciones) · 11) Tablero de Marca (resumen). Sé específico para "${BRIEF.tipo}".`,
+
+  pilares:()=>`${METODO}
+
+TAREA: Desarrolla los 5 PILARES de Marketing Digital a la Medida para este negocio. Ya existe un Kit de Marca; sé coherente con él.
+${briefText()}
+
+KIT DE MARCA YA GENERADO (úsalo como contexto, no lo repitas):
+${OUT.kit.slice(0,2500)}
+
+Estructura con encabezados (##) por pilar: ## Pilar 1 — Cliente y su dolor (mapa de empatía + buyer persona) · ## Pilar 2 — Propuesta Única de Valor (incluye la frase final de PUV en negrita) · ## Pilar 3 — Canales correctos (tabla: canal, por qué, foco) · ## Pilar 4 — Contenido que guía (mezcla 60/20/10/10 con ejemplos de temas por categoría y formatos) · ## Pilar 5 — Embudo de ventas (pasos + activos: landing, WhatsApp, CRM, automatización). Específico para "${BRIEF.tipo}".`,
+
+  calendario:()=>`${METODO}
+
+TAREA: Crea un CALENDARIO DE CONTENIDO SEMANAL (Lunes a Domingo) para este negocio, aplicando la mezcla 60% visibilidad / 20% posicionamiento / 10% conexión / 10% venta.
+${briefText()}
+
+Contexto de estrategia (no lo repitas):
+${OUT.pilares.slice(0,1800)}
+
+Entrega: 1) una TABLA con columnas: Día | Formato | Categoría (Visibilidad/Posicionamiento/Conexión/Venta) | Tema concreto del post | Gancho. Cubre los 7 días. 2) Una leyenda breve. 3) 3 recomendaciones de frecuencia/horarios. Temas reales para "${BRIEF.tipo}".`,
+
+  piezas:()=>`${METODO}
+
+TAREA: Escribe PIEZAS DE CONTENIDO LISTAS PARA PUBLICAR para este negocio, en su tono de marca.
+${briefText()}
+
+Contexto (no lo repitas):
+${OUT.pilares.slice(0,1500)}
+
+Entrega exactamente: ## 3 Posts (cada uno con: Gancho, Cuerpo, CTA, 5–8 hashtags) · ## 2 Guiones de Reel (estructura: Hook 3s, desarrollo por escenas, CTA; incluye texto en pantalla y sugerencia de audio) · ## 1 Carrusel (título + 5–7 slides con su texto) · ## 1 Mensaje de venta por WhatsApp (apertura, manejo de objeción de precio, cierre con CTA, tono colombiano cercano). Todo concreto para "${BRIEF.tipo}".`
+};
+
+const STEPS=[
+  {k:"kit",label:"Kit de Marca (13 pasos)"},
+  {k:"pilares",label:"5 Pilares de Marketing"},
+  {k:"calendario",label:"Calendario de contenido"},
+  {k:"piezas",label:"Piezas listas para publicar"}
+];
+
+$("gen").onclick=start;
+$("retry").onclick=start;
+function readBrief(){
+  BRIEF={
+    tipo:$("f_tipo").value.trim(), nombre:$("f_nombre").value.trim(), lugar:$("f_lugar").value.trim(),
+    oferta:$("f_oferta").value.trim(), cliente:$("f_cliente").value.trim(),
+    objetivo:$("f_objetivo").value, tono:$("f_tono").value.trim()
+  };
+}
+async function start(){
+  if(!getKey()){ $("briefErr").textContent="Primero configura tu clave de Gemini (botón ⚙ Configurar IA)."; $("openCfg").click(); return; }
+  readBrief();
+  if(!BRIEF.tipo){ $("briefErr").textContent="Escribe el tipo de negocio."; $("f_tipo").focus(); return; }
+  $("briefErr").textContent="";
+  $("brief").classList.add("hidden"); $("results").classList.add("hidden");
+  $("progress").classList.remove("hidden"); $("retry").classList.add("hidden"); $("genErr").textContent="";
+  $("pTipo").textContent=BRIEF.tipo;
+  renderSteps(-1);
+  try{
+    for(let i=0;i<STEPS.length;i++){
+      renderSteps(i);
+      OUT[STEPS[i].k]=await gemini(PROMPTS[STEPS[i].k]());
+      renderSteps(i,true);
+    }
+    showResults();
+  }catch(e){
+    $("genErr").textContent="⚠ "+e.message;
+    $("retry").classList.remove("hidden");
+  }
+}
+function renderSteps(active, doneActive){
+  $("pSteps").innerHTML=STEPS.map((s,i)=>{
+    let cls="step", ic=i+1;
+    if(i<active||(i===active&&doneActive)){cls+=" done";ic="✓";}
+    else if(i===active){cls+=" run";ic='<span class="spin"></span>';}
+    return `<div class="${cls}"><div class="ic">${ic}</div><div>${s.label}</div></div>`;
+  }).join("");
+}
+
+/* ====== RESULTS ====== */
+function showResults(){
+  $("progress").classList.add("hidden");
+  $("results").classList.remove("hidden");
+  const labels={kit:"🎨 Kit de Marca",pilares:"🎯 5 Pilares",calendario:"🗓 Calendario",piezas:"✍ Piezas listas"};
+  $("tabs").innerHTML=STEPS.map((s,i)=>`<div class="tab${i===0?' on':''}" data-k="${s.k}">${labels[s.k]}</div>`).join("");
+  document.querySelectorAll(".panel").forEach(p=>{
+    const k=p.dataset.k;
+    p.innerHTML=`<div class="toolbar"><button class="btn ghost sm" data-copy="${k}">📋 Copiar</button></div><div class="md">${marked.parse(OUT[k]||"")}</div>`;
+  });
+  document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("on"));
+    document.querySelectorAll(".panel").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+    document.querySelector('.panel[data-k="'+t.dataset.k+'"]').classList.add("on");
+  });
+  document.querySelector('.panel[data-k="kit"]').classList.add("on");
+  document.querySelectorAll("[data-copy]").forEach(b=>b.onclick=()=>{
+    navigator.clipboard.writeText(OUT[b.dataset.copy]||"").then(()=>{b.textContent="✓ Copiado";setTimeout(()=>b.textContent="📋 Copiar",1400);});
+  });
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("restart").onclick=()=>{ $("results").classList.add("hidden"); $("brief").classList.remove("hidden"); window.scrollTo({top:0,behavior:"smooth"}); };
+$("dlAll").onclick=()=>{
+  const t=BRIEF.nombre||BRIEF.tipo;
+  const md=`# Kit de Marca + Estrategia Digital — ${t}\n_Generado con el método ICONE Academy · Jorge Hugo Pérez_\n\n# 🎨 KIT DE MARCA\n\n${OUT.kit}\n\n# 🎯 5 PILARES DE MARKETING DIGITAL A LA MEDIDA\n\n${OUT.pilares}\n\n# 🗓 CALENDARIO DE CONTENIDO\n\n${OUT.calendario}\n\n# ✍ PIEZAS LISTAS PARA PUBLICAR\n\n${OUT.piezas}\n`;
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([md],{type:"text/markdown;charset=utf-8"}));
+  a.download=`marca-y-marketing-${(t||'negocio').toLowerCase().replace(/[^a-z0-9]+/g,'-')}.md`;a.click();
+};
+
+/* STARS BG */
+(function(){const cv=$("stars");const ctx=cv.getContext("2d");let st=[];function rs(){cv.width=innerWidth;cv.height=innerHeight;st=[];const k=Math.min(90,innerWidth/14);for(let i=0;i<k;i++)st.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.4+.3,a:Math.random(),s:Math.random()*.02+.005});}
+function loop(){ctx.clearRect(0,0,cv.width,cv.height);st.forEach(p=>{p.a+=p.s;const al=.3+Math.abs(Math.sin(p.a))*.6;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fillStyle=`rgba(0,212,255,${al*.5})`;ctx.fill();});requestAnimationFrame(loop);}
+addEventListener("resize",rs);rs();loop();})();
+</script>
+</body>
+</html>
